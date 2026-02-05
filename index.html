@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GlobalTaskPro</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial;
+    background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    color:white;
+    text-align:center;
+}
+
+.container{
+    margin-top:100px;
+}
+
+input{
+    width:280px;
+    padding:12px;
+    margin:10px;
+    border:none;
+    border-radius:8px;
+}
+
+button{
+    padding:12px 25px;
+    margin:10px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.register{
+    background:#00c853;
+    color:white;
+}
+
+.login{
+    background:#2979ff;
+    color:white;
+}
+
+h1{
+    font-size:40px;
+    margin-bottom:20px;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+<h1>GlobalTaskPro</h1>
+
+<input type="email" id="email" placeholder="Email"><br>
+<input type="password" id="password" placeholder="Password"><br>
+
+<button class="register" onclick="register()">Register</button>
+<button class="login" onclick="login()">Login</button>
+
+<p id="msg"></p>
+</div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDxC1ZVii565BeEs5SgYrToxNiImats-XA",
+  authDomain: "globaltaskpro-c09b1.firebaseapp.com",
+  projectId: "globaltaskpro-c09b1",
+  storageBucket: "globaltaskpro-c09b1.firebasestorage.app",
+  messagingSenderId: "876216223575",
+  appId: "1:876216223575:web:e4c0715b17d62c1cb96012",
+  measurementId: "G-5RJD6YZCEB"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+window.register = function(){
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    createUserWithEmailAndPassword(auth, email, password)
+    .then(() => {
+        document.getElementById("msg").innerText = "Account Created Successfully ✅";
+    })
+    .catch((error) => {
+        document.getElementById("msg").innerText = error.message;
+    });
+}
+
+window.login = function(){
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    signInWithEmailAndPassword(auth, email, password)
+    .then(() => {
+        document.getElementById("msg").innerText = "Login Successful ✅";
+    })
+    .catch((error) => {
+        document.getElementById("msg").innerText = error.message;
+    });
+}
+
+</script>
+
+</body>
+</html>
